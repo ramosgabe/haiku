@@ -58,7 +58,7 @@ h1 {
 
 .eye-container {
     margin-top: 20px; /* Add top margin to center under the text */
-    bottom: 200px; /* Adjust the position from the bottom as needed */
+    bottom: 300px; /* Adjust the position from the bottom as needed */
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Center horizontally */
 }
@@ -97,7 +97,7 @@ h1 {
 
 .password-container {
     margin-top: 20px; /* Add top margin to center under the text */
-    bottom: 600px; /* Adjust the position from the bottom as needed */
+    bottom: 400px; /* Adjust the position from the bottom as needed */
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Center horizontally */
 }
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 txt += dataText[i].charAt(txt.length);
                 document.querySelector('h1').textContent = txt;
                 setTimeout(typeWriter, speed);
-                if (!passwordAnimationStarted && i === 0 && txt.includes("is")) { // Check if it's the first line and contains "your "
+                if (!passwordAnimationStarted && i === 0 && txt.includes("hat")) { // Check if it's the first line and contains "your "
                     startPasswordAnimation(); // Start password animation
                     passwordAnimationStarted = true;
                 }
@@ -183,12 +183,12 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 letterSpan.textContent = letter;
                 letterSpan.classList.add('password-letter');
                 document.querySelector('.password-container').appendChild(letterSpan);
-            }, (index + 1) * 70); // Adjust timing here
+            }, (index + 1) * 150); // Adjust timing here
         });
         // Clear the password animation after a delay
         setTimeout(function() {
             document.querySelector('.password-container').innerHTML = '';
-        }, (passwordLetters.length + 1) * 180); // Adjust timing here
+        }, (passwordLetters.length + 1) * 240); // Adjust timing here
     }
 
     // start the typewriter animation
