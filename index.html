@@ -42,13 +42,22 @@ h1 {
     text-align: center;
 }
 
+.eye-container {
+    margin-top: 20px; /* Add top margin to center under the text */
+    position: fixed; /* Position the eye fixed in the viewport */
+    bottom: 500px; /* Adjust the position from the bottom as needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+}
+
 .eye {
     width: 80px; /* Reduce eye size */
     height: 80px; /* Reduce eye size */
     background-color: white;
     border-radius: 50%;
-    position: relative;
-    display: inline-block;
+    position: absolute; /* Position the eye absolute within the container */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
     overflow: hidden; /* Ensure the pupil stays within the eye */
 }
 
@@ -63,6 +72,7 @@ h1 {
     transform: translate(-50%, -50%);
     animation: look 1.5s infinite alternate;
 }
+
 
 @keyframes look {
     0%, 100% {
@@ -87,27 +97,37 @@ h1 {
 }
 
 .password-container {
-    font-size: 24px; /* Font size */
+    margin-top: 20px; /* Add top margin to center under the text */
+    position: fixed; /* Position the eye fixed in the viewport */
+    bottom: 600px; /* Adjust the position from the bottom as needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
 }
 
 .password-letter {
     display: inline-block;
     width: 20px; /* Width of each letter */
     height: 20px; /* Height of each letter */
-    border: 2px solid white; /* Border */
+    border: 3px solid white; /* Border */
     text-align: center;
     line-height: 20px;
     margin-right: 5px; /* Spacing between letters */
     opacity: 0; /* Initially invisible */
-    animation: reveal 0.5s forwards; /* Animation to reveal letters */
+    animation: reveal 0.8s forwards; /* Animation to reveal letters */
 }
 
 @keyframes reveal {
     0% {
-        opacity: 0;
+        opacity: 0; /* Start with letters invisible */
+    }
+    30% {
+        opacity: 1; /* Gradually reveal the letters */
+    }
+    70% {
+        opacity: 1; /* Keep the letters visible */
     }
     100% {
-        opacity: 1;
+        opacity: 1; /* Make the letters invisible again */
     }
 }
 
@@ -130,19 +150,14 @@ h1 {
 
 <div class="center">
   <h1></h1><span class="cursor">|</span> <!-- Adjust cursor content to be just a pipe character -->
+</div>
+
+<div class="password-container"></div> <!-- Container for the password animation -->
+
+<div class="eye-container"> <!-- Add a container for the eye -->
   <a href="https://a1exm10.github.io/Interwing-Alex-M/" class="eye" style="text-decoration: none; color: inherit;">
     <div class="pupil"></div>
   </a>
-  <div class="password-container">
-    <span class="password-letter">p</span>
-    <span class="password-letter">a</span>
-    <span class="password-letter">s</span>
-    <span class="password-letter">s</span>
-    <span class="password-letter">w</span>
-    <span class="password-letter">o</span>
-    <span class="password-letter">r</span>
-    <span class="password-letter">d</span>
-  </div>
 </div>
 
 <script>
@@ -151,7 +166,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
     var dataText = ["what is your ", "an overshared tree of life", "the all seeing eye"];
     var i = 0;
     var txt = '';
-    var speed = 180; // typing speed in milliseconds
+    var speed = 250; // typing speed in milliseconds
+    var passwordAnimationStarted = false;
 
     function typeWriter() {
         if (i < dataText.length) {
@@ -159,17 +175,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 txt += dataText[i].charAt(txt.length);
                 document.querySelector('h1').textContent = txt;
                 setTimeout(typeWriter, speed);
-                if (txt.includes("your ")) {
-                    document.querySelector('.password-container').innerHTML = ''; // Clear previous letters
-                    var passwordLetters = ["p", "a", "s", "s", "w", "o", "r", "d"];
-                    passwordLetters.forEach(function(letter, index) {
-                        setTimeout(function() {
-                            var letterSpan = document.createElement('span');
-                            letterSpan.textContent = letter;
-                            letterSpan.classList.add('password-letter');
-                            document.querySelector('.password-container').appendChild(letterSpan);
-                        }, index * 100);
-                    });
+                if (!passwordAnimationStarted && i === 0 && txt.includes("is")) { // Check if it's the first line and contains "your "
+                    startPasswordAnimation(); // Start password animation
+                    passwordAnimationStarted = true;
                 }
             } else {
                 i++;
@@ -177,6 +185,22 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 setTimeout(typeWriter, speed);
             }
         }
+    }
+
+    function startPasswordAnimation() {
+        var passwordLetters = ["(","p", "a", "s", "s", "w", "o", "r", "d",")"];
+        passwordLetters.forEach(function(letter, index) {
+            setTimeout(function() {
+                var letterSpan = document.createElement('span');
+                letterSpan.textContent = letter;
+                letterSpan.classList.add('password-letter');
+                document.querySelector('.password-container').appendChild(letterSpan);
+            }, (index + 1) * 70); // Adjust timing here
+        });
+        // Clear the password animation after a delay
+        setTimeout(function() {
+            document.querySelector('.password-container').innerHTML = '';
+        }, (passwordLetters.length + 1) * 180); // Adjust timing here
     }
 
     // start the typewriter animation
@@ -203,7 +227,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
         pupil.style.left = pupilX - eyeRect.left - pupilRect.width / 2 + 'px';
         pupil.style.top = pupilY - eyeRect.top - pupilRect.height / 2 + 'px';
     });
-
 });
 </script>
 
