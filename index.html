@@ -38,13 +38,20 @@ h1 {
     }
 }
 
+.center, .password-container, .eye-container {
+    position: absolute;
+    z-index: 1; /* Set a higher z-index for the containers */
+}
+
 .center {
     text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .eye-container {
     margin-top: 20px; /* Add top margin to center under the text */
-    position: fixed; /* Position the eye fixed in the viewport */
     bottom: 500px; /* Adjust the position from the bottom as needed */
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Center horizontally */
@@ -84,7 +91,6 @@ h1 {
 
 .password-container {
     margin-top: 20px; /* Add top margin to center under the text */
-    position: fixed; /* Position the eye fixed in the viewport */
     bottom: 600px; /* Adjust the position from the bottom as needed */
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Center horizontally */
