@@ -148,7 +148,7 @@ h1 {
 <script>
 document.addEventListener('DOMContentLoaded', function(event) {
     // array with texts to type in typewriter
-    var dataText = ["what is your password", "an overshared tree of life", "the all seeing eye"];
+    var dataText = ["what is your ", "an overshared tree of life", "the all seeing eye"];
     var i = 0;
     var txt = '';
     var speed = 180; // typing speed in milliseconds
@@ -159,6 +159,18 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 txt += dataText[i].charAt(txt.length);
                 document.querySelector('h1').textContent = txt;
                 setTimeout(typeWriter, speed);
+                if (txt.includes("your ")) {
+                    document.querySelector('.password-container').innerHTML = ''; // Clear previous letters
+                    var passwordLetters = ["p", "a", "s", "s", "w", "o", "r", "d"];
+                    passwordLetters.forEach(function(letter, index) {
+                        setTimeout(function() {
+                            var letterSpan = document.createElement('span');
+                            letterSpan.textContent = letter;
+                            letterSpan.classList.add('password-letter');
+                            document.querySelector('.password-container').appendChild(letterSpan);
+                        }, index * 100);
+                    });
+                }
             } else {
                 i++;
                 txt = '';
@@ -192,14 +204,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
         pupil.style.top = pupilY - eyeRect.top - pupilRect.height / 2 + 'px';
     });
 
-    // Password animation
-    var passwordLetters = document.querySelectorAll('.password-letter');
-    passwordLetters.forEach(function(letter, index) {
-        setTimeout(function() {
-            letter.textContent = ''; // Clear the letter
-            letter.classList.add('letter-to-circle'); // Apply class to transform to circle
-        }, index * 500); // Delay based on index
-    });
 });
 </script>
 
