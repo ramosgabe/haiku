@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Centered Content</title>
+<title>Centered Content with Eye and Password Animation</title>
 <style>
 body, html {
     height: 100%;
@@ -14,28 +14,28 @@ body, html {
 }
 
 body {
-  background-color: #120439;
-  height: 100%;
-  font-family: 'tradegothiclt-bold', sans-serif;
+    background-color: #120439;
+    height: 100%;
+    font-family: 'tradegothiclt-bold', sans-serif;
 }
 
 h1 {
-  font-size: 5em;
-  color: white;
-  text-transform: uppercase;
-  display: inline-block;
+    font-size: 5em;
+    color: white;
+    text-transform: uppercase;
+    display: inline-block;
 }
 
 .cursor {
-  font-size: 5em;
-  color: white;
-  animation: caret 1s steps(1) infinite;
+    font-size: 5em;
+    color: white;
+    animation: caret 1s steps(1) infinite;
 }
 
 @keyframes caret {
-  50% {
-    opacity: 0; /* Make the cursor transparent to create the blinking effect */
-  }
+    50% {
+        opacity: 0; /* Make the cursor transparent to create the blinking effect */
+    }
 }
 
 .center {
@@ -43,52 +43,183 @@ h1 {
 }
 
 .fade {
-  opacity: 0;
+    opacity: 0;
 }
 
+.eye {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+    overflow: hidden; /* Ensure the pupil stays within the eye */
+}
+
+.pupil {
+    width: 30px;
+    height: 30px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: look 1.5s infinite alternate;
+}
+
+@keyframes look {
+    0%, 100% {
+        transform: translate(-50%, -50%);
+    }
+    50% {
+        transform: translate(-50%, -30%);
+    }
+}
+
+@keyframes blink {
+    0%, 100% {
+        height: 100px;
+    }
+    50% {
+        height: 10px;
+    }
+}
+
+.password-box {
+    width: 300px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.password-text {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 20px;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 2px solid #333;
+}
+
+.password-cursor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: #333;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { width: 0; }
+    50% { width: 100%; }
+}
+
+.fade-in {
+    animation: fadeIn 1s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 </style>
 </head>
 <body>
 
 <div class="center">
-  <h1></h1><span class="cursor"><a href="https://a1exm10.github.io/Interwing-Alex-M/">|</a></span> <!-- Wrap the cursor within the anchor tag -->
+  <h1></h1><span class="cursor">|</span> <!-- Adjust cursor content to be just a pipe character -->
   <p class="fade">what is your password</p>
   <p class="fade">an overshared tree of life</p>
-  <p class="fade"><a href="https://a1exm10.github.io/Interwing-Alex-M/"><span class="cursor">|</span></a></p>
+  <p class="fade"><a href="https://a1exm10.github.io/Interwing-Alex-M/"></a><span class="cursor">|</span></p> <!-- Enclose the cursor within an anchor tag -->
+  <div class="eye">
+    <div class="pupil"></div>
+  </div>
+  <div class="password-box">
+    <input type="password" class="password-text">
+    <div class="password-cursor"></div>
+  </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function(event) {
-  // array with texts to type in typewriter
-  var dataText = ["what is your password", "an overshared tree of life", "the all seeing eye"];
-  var fadeElements = document.querySelectorAll('.fade');
-  var i = 0;
-  var txt = '';
-  var speed = 100; // typing speed in milliseconds
+    // array with texts to type in typewriter
+    var dataText = ["what is your password", "an overshared tree of life", "the all seeing eye"];
+    var fadeElements = document.querySelectorAll('.fade');
+    var i = 0;
+    var txt = '';
+    var speed = 100; // typing speed in milliseconds
 
-  function typeWriter() {
-    if (i < dataText.length) {
-      if (txt.length < dataText[i].length) {
-        txt += dataText[i].charAt(txt.length);
-        document.querySelector('h1').textContent = txt;
-        setTimeout(typeWriter, speed);
-      } else {
-        // Fade in the current text
-        fadeElements[i].style.opacity = 1;
-        setTimeout(function() {
-          // Fade out the current text
-          fadeElements[i].style.opacity = 0;
-          // Move to the next text
-          i++;
-          txt = '';
-          setTimeout(typeWriter, speed);
-        }, 1000); // Wait for 1 second before moving to the next text
-      }
+    function typeWriter() {
+        if (i < dataText.length) {
+            if (txt.length < dataText[i].length) {
+                txt += dataText[i].charAt(txt.length);
+                document.querySelector('h1').textContent = txt;
+                setTimeout(typeWriter, speed);
+            } else {
+                // Fade in the current text
+                fadeElements[i].style.opacity = 1;
+                setTimeout(function() {
+                    // Fade out the current text
+                    fadeElements[i].style.opacity = 0;
+                    // Move to the next text
+                    i++;
+                    txt = '';
+                    setTimeout(typeWriter, speed);
+                }, 1000); // Wait for 1 second before moving to the next text
+            }
+        }
     }
-  }
 
-  // start the typewriter animation
-  typeWriter();
+    // start the typewriter animation
+    typeWriter();
+
+    // Eye blinks periodically
+    setInterval(function() {
+        var pupil = document.querySelector('.pupil');
+        pupil.classList.toggle('blink');
+    }, 5000); // Blink every 5 seconds
+
+    // Eye follows the cursor
+    document.addEventListener('mousemove', function(e) {
+        var eye = document.querySelector('.eye');
+        var pupil = document.querySelector('.pupil');
+        var eyeRect = eye.getBoundingClientRect();
+        var pupilRect = pupil.getBoundingClientRect();
+        var eyeCenterX = eyeRect.left + eyeRect.width / 2;
+        var eyeCenterY = eyeRect.top + eyeRect.height / 2;
+        var angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
+        var distance = Math.min(eyeRect.width / 3, Math.sqrt(Math.pow(e.clientX - eyeCenterX, 2) + Math.pow(e.clientY - eyeCenterY, 2)));
+        var pupilX = eyeCenterX + distance * Math.cos(angle);
+        var pupilY = eyeCenterY + distance * Math.sin(angle);
+        pupil.style.left = pupilX - eyeRect.left - pupilRect.width / 2 + 'px';
+        pupil.style.top = pupilY - eyeRect.top - pupilRect.height / 2 + 'px';
+    });
+
+    // Password typing animation
+    var passwordText = document.querySelector('.password-text');
+    var passwordCursor = document.querySelector('.password-cursor');
+    var password = "yourpassword"; // Change this to the actual password
+
+    function typePassword(index) {
+        if (index <= password.length) {
+            passwordText.value = password.substr(0, index);
+            index++;
+            setTimeout(function() {
+                typePassword(index);
+            }, 200);
+        } else {
+            passwordCursor.style.display = 'none';
+        }
+    }
+
+    setTimeout(function() {
+        passwordCursor.classList.add('fade-in');
+        typePassword(0);
+    }, 1000);
 });
 </script>
 
