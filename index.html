@@ -11,30 +11,33 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #120439; /* Dark background color */
+    background-color: #2b2b2b; /* Dark grey background color */
 }
 
 body {
     font-family: 'Press Start 2P', cursive; /* Use 8-bit font */
-    color: white; /* Text color */
+    color: #dcdcdc; /* Light grey text color */
 }
 
 h1 {
     font-size: 3em; /* Reduce font size */
-    color: white;
+    color: #dcdcdc; /* Light grey */
     text-transform: uppercase;
     display: inline-block;
 }
 
 .cursor {
     font-size: 3em; /* Reduce cursor size */
-    color: white;
-    animation: caret 1s steps(1) infinite;
+    color: white; /* Cursor color */
+    animation: blink 1s infinite step-end; /* Blink animation */
 }
 
-@keyframes caret {
-    50% {
-        opacity: 0; /* Make the cursor transparent to create the blinking effect */
+@keyframes blink {
+    0%, 50% {
+        opacity: 1; /* Make the cursor visible */
+    }
+    51%, 100% {
+        opacity: 0; /* Hide the cursor */
     }
 }
 
@@ -44,11 +47,14 @@ h1 {
 }
 
 .center {
+    white-space: nowrap; /* Prevent text from wrapping */
     text-align: center;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-size: 13px;
 }
+
 
 .eye-container {
     margin-top: 20px; /* Add top margin to center under the text */
@@ -60,7 +66,7 @@ h1 {
 .eye {
     width: 80px; /* Reduce eye size */
     height: 80px; /* Reduce eye size */
-    background-color: white;
+    background-color: #c0c0c0; /* Silver */
     border-radius: 50%;
     position: absolute; /* Position the eye absolute within the container */
     left: 50%; /* Center horizontally */
@@ -71,7 +77,7 @@ h1 {
 .pupil {
     width: 20px; /* Reduce pupil size */
     height: 20px; /* Reduce pupil size */
-    background-color: black;
+    background-color: #000000; /* Black */
     border-radius: 50%;
     position: absolute;
     top: 50%;
@@ -100,7 +106,7 @@ h1 {
     display: inline-block;
     width: 20px; /* Width of each letter */
     height: 20px; /* Height of each letter */
-    border: 3px solid white; /* Border */
+    border: 3px solid #dcdcdc; /* Light grey border */
     text-align: center;
     line-height: 20px;
     margin-right: 5px; /* Spacing between letters */
@@ -129,7 +135,7 @@ h1 {
 <body>
 
 <div class="center">
-  <h1></h1><span class="cursor">|</span> <!-- Adjust cursor content to be just a pipe character -->
+  <h1></h1><span class="cursor">_</span> <!-- Adjust cursor content to be just a pipe character -->
 </div>
 
 <div class="password-container"></div> <!-- Container for the password animation -->
@@ -145,7 +151,7 @@ h1 {
 <script>
 document.addEventListener('DOMContentLoaded', function(event) {
     // array with texts to type in typewriter
-    var dataText = ["what is your ", "an overshared tree of life", "the all seeing eye"];
+    var dataText = ["what is your ", "the overshared tree of life", "the all seeing eye"];
     var i = 0;
     var txt = '';
     var speed = 250; // typing speed in milliseconds
@@ -212,9 +218,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
     canvas.height = window.innerHeight;
 
     var nodes = [];
-    var nodeCount = 20; // Number of nodes
+    var nodeCount = 40; // Number of nodes
     var maxDistance = 150; // Maximum distance between nodes
-    var maxLineWidth = 5; // Maximum line width
+    var maxLineWidth = 2; // Maximum line width
 
     function Node(x, y) {
         this.x = x;
@@ -253,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
             nodes[i].update();
             ctx.beginPath();
             ctx.arc(nodes[i].x, nodes[i].y, 2, 0, Math.PI * 2);
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = '#dcdcdc'; /* Light grey */
             ctx.fill();
 
             for (var j = i + 1; j < nodes.length; j++) {
@@ -266,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
                     ctx.beginPath();
                     ctx.moveTo(nodes[i].x, nodes[i].y);
                     ctx.lineTo(nodes[j].x, nodes[j].y);
-                    ctx.strokeStyle = 'rgba(255, 255, 255, ' + lineWidth + ')';
+                    ctx.strokeStyle = 'rgba(170, 0, 170, ' + lineWidth + ')'; /* Purple */
                     ctx.stroke();
                 }
             }
