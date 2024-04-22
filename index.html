@@ -16,6 +16,7 @@ body, html {
 
 body {
     font-family: 'Press Start 2P', cursive; /* Use 8-bit font */
+    color: white; /* Text color */
 }
 
 h1 {
@@ -42,20 +43,13 @@ h1 {
 }
 
 .eye {
-    position: relative; /* Set position to relative */
     width: 80px; /* Reduce eye size */
     height: 80px; /* Reduce eye size */
     background-color: white;
     border-radius: 50%;
+    position: relative;
+    display: inline-block;
     overflow: hidden; /* Ensure the pupil stays within the eye */
-}
-
-.eye a {
-    position: absolute; /* Set position to absolute */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 .pupil {
@@ -89,34 +83,45 @@ h1 {
 }
 
 .password-box {
-    width: 240px; /* Reduce password box width */
-    margin-bottom: 20px;
-    position: relative;
+    display: none; /* Hide the password box */
 }
 
-.password-text {
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 16px; /* Reduce font size */
-    width: 100%;
-    padding: 5px 0; /* Reduce padding */
-    border-bottom: 1px solid #333; /* Reduce border thickness */
+.password-container {
+    font-size: 24px; /* Font size */
 }
 
-.password-cursor {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    width: 0;
-    background-color: #333;
-    animation: blink 0.7s infinite;
+.password-letter {
+    display: inline-block;
+    width: 20px; /* Width of each letter */
+    height: 20px; /* Height of each letter */
+    border: 2px solid white; /* Border */
+    text-align: center;
+    line-height: 20px;
+    margin-right: 5px; /* Spacing between letters */
+    opacity: 0; /* Initially invisible */
+    animation: reveal 0.5s forwards; /* Animation to reveal letters */
 }
 
-@keyframes blink {
-    0%, 100% { width: 0; }
-    50% { width: 100%; }
+@keyframes reveal {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.letter-to-circle {
+    animation: toCircle 0.5s forwards; /* Animation to change letter to circle */
+}
+
+@keyframes toCircle {
+    0% {
+        border-radius: 0;
+    }
+    100% {
+        border-radius: 50%; /* Circle border radius */
+    }
 }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -125,13 +130,18 @@ h1 {
 
 <div class="center">
   <h1></h1><span class="cursor">|</span> <!-- Adjust cursor content to be just a pipe character -->
-  <div class="eye">
-    <a href="https://a1exm10.github.io/Interwing-Alex-M/"></a> <!-- Link placed inside the eye -->
+  <a href="https://a1exm10.github.io/Interwing-Alex-M/" class="eye" style="text-decoration: none; color: inherit;">
     <div class="pupil"></div>
-  </div>
-  <div class="password-box">
-    <input type="password" class="password-text">
-    <div class="password-cursor"></div>
+  </a>
+  <div class="password-container">
+    <span class="password-letter">p</span>
+    <span class="password-letter">a</span>
+    <span class="password-letter">s</span>
+    <span class="password-letter">s</span>
+    <span class="password-letter">w</span>
+    <span class="password-letter">o</span>
+    <span class="password-letter">r</span>
+    <span class="password-letter">d</span>
   </div>
 </div>
 
@@ -141,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     var dataText = ["what is your password", "an overshared tree of life", "the all seeing eye"];
     var i = 0;
     var txt = '';
-    var speed = 100; // typing speed in milliseconds
+    var speed = 180; // typing speed in milliseconds
 
     function typeWriter() {
         if (i < dataText.length) {
@@ -182,27 +192,14 @@ document.addEventListener('DOMContentLoaded', function(event) {
         pupil.style.top = pupilY - eyeRect.top - pupilRect.height / 2 + 'px';
     });
 
-    // Password typing animation
-    var passwordText = document.querySelector('.password-text');
-    var passwordCursor = document.querySelector('.password-cursor');
-    var password = "yourpassword"; // Change this to the actual password
-
-    function typePassword(index) {
-        if (index <= password.length) {
-            passwordText.value = password.substr(0, index);
-            index++;
-            setTimeout(function() {
-                typePassword(index);
-            }, 200);
-        } else {
-            passwordCursor.style.display = 'none';
-        }
-    }
-
-    setTimeout(function() {
-        passwordCursor.classList.add('fade-in');
-        typePassword(0);
-    }, 1000);
+    // Password animation
+    var passwordLetters = document.querySelectorAll('.password-letter');
+    passwordLetters.forEach(function(letter, index) {
+        setTimeout(function() {
+            letter.textContent = ''; // Clear the letter
+            letter.classList.add('letter-to-circle'); // Apply class to transform to circle
+        }, index * 500); // Delay based on index
+    });
 });
 </script>
 
