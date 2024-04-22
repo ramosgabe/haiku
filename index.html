@@ -83,19 +83,6 @@ h1 {
     }
 }
 
-@keyframes blink {
-    0%, 100% {
-        height: 80px; /* Reduce eye size */
-    }
-    50% {
-        height: 10px;
-    }
-}
-
-.password-box {
-    display: none; /* Hide the password box */
-}
-
 .password-container {
     margin-top: 20px; /* Add top margin to center under the text */
     position: fixed; /* Position the eye fixed in the viewport */
@@ -131,18 +118,6 @@ h1 {
     }
 }
 
-.letter-to-circle {
-    animation: toCircle 0.5s forwards; /* Animation to change letter to circle */
-}
-
-@keyframes toCircle {
-    0% {
-        border-radius: 0;
-    }
-    100% {
-        border-radius: 50%; /* Circle border radius */
-    }
-}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
@@ -205,12 +180,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
     // start the typewriter animation
     typeWriter();
-
-    // Eye blinks periodically
-    setInterval(function() {
-        var pupil = document.querySelector('.pupil');
-        pupil.classList.toggle('blink');
-    }, 5000); // Blink every 5 seconds
 
     // Eye follows the cursor
     document.addEventListener('mousemove', function(e) {
