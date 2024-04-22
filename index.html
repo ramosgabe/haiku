@@ -163,14 +163,17 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 txt += dataText[i].charAt(txt.length);
                 document.querySelector('h1').textContent = txt;
                 setTimeout(typeWriter, speed);
-                if (!passwordAnimationStarted && i === 0 && txt.includes("hat")) { // Check if it's the first line and contains "your "
+                if (!passwordAnimationStarted && i === 0 && txt.includes("our")) { // Check if it's the first line and contains "your "
                     startPasswordAnimation(); // Start password animation
                     passwordAnimationStarted = true;
                 }
             } else {
+                setTimeout(function() {
                 i++;
                 txt = '';
-                setTimeout(typeWriter, speed);
+                document.querySelector('h1').textContent = ''; // Clear text after delay
+                setTimeout(typeWriter, speed); // Start typing next line after delay
+            }, 2800); // Adjust delay time here (2000 milliseconds = 2 seconds)
             }
         }
     }
@@ -188,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         // Clear the password animation after a delay
         setTimeout(function() {
             document.querySelector('.password-container').innerHTML = '';
-        }, (passwordLetters.length + 1) * 240); // Adjust timing here
+        }, (passwordLetters.length + 1) * 300); // Adjust timing here
     }
 
     // start the typewriter animation
