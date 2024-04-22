@@ -1,11 +1,96 @@
-<p>
-  what is your password
-</p>
-<p>
-  
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centered Content</title>
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-<p>  
- <a href="https://a1exm10.github.io/Interwing-Alex-M/">the all seeing eye</a> 
-</p>
+body {
+  background-color: #120439;
+  height: 100%;
+  font-family: 'tradegothiclt-bold', sans-serif;
+}
 
+h1 {
+  font-size: 5em;
+  color: white;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.cursor {
+  font-size: 5em;
+  color: white;
+  animation: caret 1s steps(1) infinite;
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0; /* Make the cursor transparent to create the blinking effect */
+  }
+}
+
+.center {
+    text-align: center;
+}
+
+.fade {
+  opacity: 0;
+}
+
+</style>
+</head>
+<body>
+
+<div class="center">
+  <h1></h1><span class="cursor"><a href="https://a1exm10.github.io/Interwing-Alex-M/">|</a></span> <!-- Wrap the cursor within the anchor tag -->
+  <p class="fade">what is your password</p>
+  <p class="fade">an overshared tree of life</p>
+  <p class="fade"><a href="https://a1exm10.github.io/Interwing-Alex-M/"><span class="cursor">|</span></a></p>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(event) {
+  // array with texts to type in typewriter
+  var dataText = ["what is your password", "an overshared tree of life", "the all seeing eye"];
+  var fadeElements = document.querySelectorAll('.fade');
+  var i = 0;
+  var txt = '';
+  var speed = 100; // typing speed in milliseconds
+
+  function typeWriter() {
+    if (i < dataText.length) {
+      if (txt.length < dataText[i].length) {
+        txt += dataText[i].charAt(txt.length);
+        document.querySelector('h1').textContent = txt;
+        setTimeout(typeWriter, speed);
+      } else {
+        // Fade in the current text
+        fadeElements[i].style.opacity = 1;
+        setTimeout(function() {
+          // Fade out the current text
+          fadeElements[i].style.opacity = 0;
+          // Move to the next text
+          i++;
+          txt = '';
+          setTimeout(typeWriter, speed);
+        }, 1000); // Wait for 1 second before moving to the next text
+      }
+    }
+  }
+
+  // start the typewriter animation
+  typeWriter();
+});
+</script>
+
+</body>
+</html>
