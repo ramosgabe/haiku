@@ -11,23 +11,22 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #120439; /* Dark background color */
 }
 
 body {
-    background-color: #120439;
-    height: 100%;
-    font-family: 'tradegothiclt-bold', sans-serif;
+    font-family: 'Press Start 2P', cursive; /* Use 8-bit font */
 }
 
 h1 {
-    font-size: 5em;
+    font-size: 3em; /* Reduce font size */
     color: white;
     text-transform: uppercase;
     display: inline-block;
 }
 
 .cursor {
-    font-size: 5em;
+    font-size: 3em; /* Reduce cursor size */
     color: white;
     animation: caret 1s steps(1) infinite;
 }
@@ -42,23 +41,26 @@ h1 {
     text-align: center;
 }
 
-.fade {
-    opacity: 0;
-}
-
 .eye {
-    width: 100px;
-    height: 100px;
+    position: relative; /* Set position to relative */
+    width: 80px; /* Reduce eye size */
+    height: 80px; /* Reduce eye size */
     background-color: white;
     border-radius: 50%;
-    position: relative;
-    display: inline-block;
     overflow: hidden; /* Ensure the pupil stays within the eye */
 }
 
+.eye a {
+    position: absolute; /* Set position to absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .pupil {
-    width: 30px;
-    height: 30px;
+    width: 20px; /* Reduce pupil size */
+    height: 20px; /* Reduce pupil size */
     background-color: black;
     border-radius: 50%;
     position: absolute;
@@ -79,7 +81,7 @@ h1 {
 
 @keyframes blink {
     0%, 100% {
-        height: 100px;
+        height: 80px; /* Reduce eye size */
     }
     50% {
         height: 10px;
@@ -87,7 +89,7 @@ h1 {
 }
 
 .password-box {
-    width: 300px;
+    width: 240px; /* Reduce password box width */
     margin-bottom: 20px;
     position: relative;
 }
@@ -96,10 +98,10 @@ h1 {
     border: none;
     outline: none;
     background: none;
-    font-size: 20px;
+    font-size: 16px; /* Reduce font size */
     width: 100%;
-    padding: 10px 0;
-    border-bottom: 2px solid #333;
+    padding: 5px 0; /* Reduce padding */
+    border-bottom: 1px solid #333; /* Reduce border thickness */
 }
 
 .password-cursor {
@@ -116,26 +118,15 @@ h1 {
     0%, 100% { width: 0; }
     50% { width: 100%; }
 }
-
-.fade-in {
-    animation: fadeIn 1s forwards;
-    opacity: 0;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="center">
   <h1></h1><span class="cursor">|</span> <!-- Adjust cursor content to be just a pipe character -->
-  <p class="fade">what is your password</p>
-  <p class="fade">an overshared tree of life</p>
-  <p class="fade"><a href="https://a1exm10.github.io/Interwing-Alex-M/"></a><span class="cursor">|</span></p> <!-- Enclose the cursor within an anchor tag -->
   <div class="eye">
+    <a href="https://a1exm10.github.io/Interwing-Alex-M/"></a> <!-- Link placed inside the eye -->
     <div class="pupil"></div>
   </div>
   <div class="password-box">
@@ -148,7 +139,6 @@ h1 {
 document.addEventListener('DOMContentLoaded', function(event) {
     // array with texts to type in typewriter
     var dataText = ["what is your password", "an overshared tree of life", "the all seeing eye"];
-    var fadeElements = document.querySelectorAll('.fade');
     var i = 0;
     var txt = '';
     var speed = 100; // typing speed in milliseconds
@@ -160,16 +150,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
                 document.querySelector('h1').textContent = txt;
                 setTimeout(typeWriter, speed);
             } else {
-                // Fade in the current text
-                fadeElements[i].style.opacity = 1;
-                setTimeout(function() {
-                    // Fade out the current text
-                    fadeElements[i].style.opacity = 0;
-                    // Move to the next text
-                    i++;
-                    txt = '';
-                    setTimeout(typeWriter, speed);
-                }, 1000); // Wait for 1 second before moving to the next text
+                i++;
+                txt = '';
+                setTimeout(typeWriter, speed);
             }
         }
     }
