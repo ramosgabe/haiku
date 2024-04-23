@@ -151,7 +151,7 @@ h1 {
 <script>
 document.addEventListener('DOMContentLoaded', function(event) {
     // array with texts to type in typewriter
-    var dataText = ["what is your ", "Data floods, dopamine's tide,", "the all seeing eye"];
+    var dataText = ["what is your ", "Data floods dopamine's tide", "the all seeing eye"];
     var i = 0;
     var txt = '';
     var speed = 250; // typing speed in milliseconds
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     }
 
     function startPasswordAnimation() {
-        var passwordLetters = ["(","p", "a", "s", "s", "w", "o", "r", "d",")"];
+        var passwordLetters = ["<","p", "a", "s", "s", "w", "o", "r", "d",">"];
         passwordLetters.forEach(function(letter, index) {
             setTimeout(function() {
                 var letterSpan = document.createElement('span');
